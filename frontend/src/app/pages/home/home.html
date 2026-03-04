@@ -1,0 +1,41 @@
+<app-nav-bar></app-nav-bar>
+<br><br><br><br>
+
+
+@if (currentHero) {
+
+  <section
+    class="hero"
+    [style.background]="currentHero.gradient"
+    [class.animate]="true"
+  >
+
+    <div class="hero-content">
+      <h4>{{ currentHero.tag }}</h4>
+      <h1>{{ currentHero.title }}</h1>
+      <p>{{ currentHero.description }}</p>
+
+      <button class="hero-btn" [routerLink]="['/collection', currentHero.slug]">
+
+        {{ currentHero.buttonText }}
+      </button>
+
+      <div class="hero-nav">
+        <button type="button" (click)="prevSlide()">❮</button>
+        <button type="button" (click)="nextSlide()">❯</button>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img
+        [src]="currentHero.image"
+        alt="Promotional banner"
+        [title]="currentHero.title"
+      />
+    </div>
+
+  </section>
+
+}
+<app-product-list></app-product-list>
+

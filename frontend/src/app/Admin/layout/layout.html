@@ -1,0 +1,22 @@
+<div class="admin-container">
+
+  <!-- Sidebar -->
+  <app-sidebar
+    [isOpen]="isSidebarOpen"
+    (closeSidebar)="isSidebarOpen = false">
+  </app-sidebar>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <app-navbar
+      (toggleSidebar)="isSidebarOpen = !isSidebarOpen">
+    </app-navbar>
+
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

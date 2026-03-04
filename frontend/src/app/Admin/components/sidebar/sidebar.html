@@ -1,0 +1,16 @@
+<div class="sidebar" [class.open]="isOpen">
+
+  <div class="logo">
+    <h2>Admin</h2>
+  </div>
+
+  <nav>
+    <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/admin/products" routerLinkActive="active">Products</a>
+    <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+    <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+  </nav>
+
+  <button class="close-btn" (click)="closeSidebar.emit()">✖</button>
+
+</div>

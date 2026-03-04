@@ -1,0 +1,250 @@
+<app-nav-bar></app-nav-bar>
+
+<br><br>
+@if (product) {
+
+  <section class="product-view">
+
+    <!-- LEFT: IMAGES -->
+    <div class="images-section">
+
+      <img
+        class="main-image"
+        [src]="product.imageUrl[selectedImageIndex]"
+        alt="Product image"
+      >
+
+      <div class="thumbnail-row">
+
+        @for (img of product.imageUrl; track $index; let i = $index) {
+          <img
+            [src]="img"
+            (click)="selectImage(i)"
+            [class.active]="i === selectedImageIndex"
+            alt="clothe"
+          >
+        }
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT: INFO -->
+    <div class="info-section">
+
+      <h2>{{ product.name }}</h2>
+
+      <p class="category">{{ product.category }}</p>
+
+      <!-- PRICE -->
+      @if (product.discount) {
+        <p class="price">
+          <span class="old-price">
+            ₦{{ product.price }}
+          </span>
+          ₦{{ product.price - (product.price * product.discount / 100) }}
+        </p>
+      } @else {
+        <p class="price">
+          ₦{{ product.price }}
+        </p>
+      }
+
+      <!-- RATING -->
+      <div class="rating">
+        @for (star of [1,2,3,4,5]; track star) {
+          <span class="star"
+            [class.filled]="star <= product.rating">
+            ★
+          </span>
+        }
+      </div>
+      
+      <p class="description">
+          {{ product.description }}
+        </p>
+        
+        <!-- STOCK -->
+        <p
+        class="stock"
+        [class.in]="product.inStock"
+        [class.out]="!product.inStock"
+        >
+        {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+    </p>
+    
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button
+        class="cart-btn"
+        [disabled]="!canAddToCart"
+        (click)="addToCart()"
+>
+  {{ product.inStock ? 'Add to Cart' : 'Out of Stock' }}
+      </button>
+
+      <button class="buy-btn" [disabled]="!canAddToCart">
+        Buy Now
+      </button>
+    </div>
+
+    <div class="option-group">
+        <h4>Size:</h4>
+
+        <div class="options">
+            @for (size of product.sizes; track size) {
+            <button
+                (click)="selectSize(size)"
+                [class.active]="size === selectedSize">
+                {{ size }}
+            </button>
+            }
+        </div>
+    </div>
+
+    <div class="option-group color-section">
+        <h4>Color:</h4>
+
+        <div class="options color-option">
+            @for (color of product.colors; track color) {
+
+      <button
+        type="button"
+        class="color-btn"
+        [ngStyle]="{ 'background-color': color.toLowerCase() }"
+        [class.selected]="selectedColor === color"
+        (click)="selectColor(color)"
+        title="color"
+      >
+      </button>
+
+    }
+        </div>
+    </div>
+
+    <div class="quantity-box">
+        <h4>Quantity:</h4>
+
+        <div class="qty-controls">
+            <button (click)="decreaseQty()">-</button>
+            <span>{{ quantity }}</span>
+            <button (click)="increaseQty()">+</button>
+        </div>
+    </div>
+
+    </div>
+
+  </section>
+
+}@else {
+    <br><br><br><br><br>
+    <p class="noP">Product Not Found</p>
+}
+
+<section class="related-section">
+
+  <h3>Related Products</h3>
+  <br>
+  <div class="related-slider">
+
+    @for (item of relatedProducts; track item.id) {
+      <div
+        class="related-card"
+        [routerLink]="['/product', item.id]" >
+
+        <img [src]="item.imageUrl[0]" alt="">
+
+        <h4>{{ item.name }}</h4>
+
+        <p>₦{{ item.price }}</p>
+
+      </div>
+    }
+
+  </div>
+
+</section>
+
+
+
+<section class="review-section">
+
+  <h3>
+    Customer Reviews
+    ({{ product.reviews.length }})
+  </h3>
+
+  <!-- Average Rating -->
+  <div class="average-rating">
+    @for (star of [1,2,3,4,5]; track star) {
+      <span
+        class="star"
+        [class.filled]="star <= averageRating">
+        ★
+      </span>
+    }
+    <span class="avg-number">
+      {{ averageRating.toFixed(1) }} / 5
+    </span>
+  </div>
+
+  <!-- Existing Reviews -->
+  @for (review of product.reviews; track review.date) {
+
+    <div class="review-card">
+
+      <div class="review-header">
+        <strong>{{ review.name }}</strong>
+        <span class="review-date">
+          {{ review.date | date:'mediumDate' }}
+        </span>
+      </div>
+
+      <div class="rating">
+        @for (star of [1,2,3,4,5]; track star) {
+          <span
+            class="star"
+            [class.filled]="star <= review.rating">
+            ★
+          </span>
+        }
+      </div>
+
+      <p>{{ review.comment }}</p>
+
+    </div>
+
+  }
+
+  <!-- ADD REVIEW UI (Frontend Only) -->
+
+  <div class="add-review-box">
+
+    <h4>Write a Review</h4>
+
+    <!-- Star selector -->
+    <div class="star-select">
+      @for (star of [1,2,3,4,5]; track star) {
+        <span
+          class="star"
+          (click)="selectedRating = star"
+          [class.filled]="star <= selectedRating">
+          ★
+        </span>
+      }
+    </div>
+
+    <textarea
+      [(ngModel)]="newComment"
+      placeholder="Write your review..."
+    ></textarea>
+
+    <button type="button">
+      Submit Review
+    </button>
+
+  </div>
+
+</section>
+
+

@@ -1,0 +1,55 @@
+<div class="dashboard">
+
+  <div class="stats-container">
+
+    <div class="circle-card">
+      <div class="circle">{{ totalProducts }}</div>
+      <h4>Total Products</h4>
+    </div>
+
+    <div class="circle-card">
+  <div class="circle">
+    {{ totalUsers }}
+  </div>
+  <h4>Total Users</h4>
+</div>
+
+<div class="circle-card">
+  <div class="circle">
+    {{ totalCartQuantity }}
+  </div>
+  <h4>Total Cart Quantity</h4>
+</div>
+
+<div class="circle-card">
+  <div class="circle">
+    {{ totalWishlistItems }}
+  </div>
+  <h4>Total Wishlist Items</h4>
+</div>
+
+    <div class="circle-card">
+      <div class="circle">{{ totalOrders }}</div>
+      <h4>Total Orders</h4>
+    </div>
+
+    <div class="circle-card">
+      <div class="circle warning">{{ lowStock }}</div>
+      <h4>Low Stock</h4>
+    </div>
+
+    <div class="circle-card">
+      <div class="circle danger">{{ outOfStock }}</div>
+      <h4>Out of Stock</h4>
+    </div>
+
+    <div class="circle-card">
+      <div class="circle revenue">
+        {{ formatCurrency(totalInventoryValue) }}
+      </div>
+      <h4>Inventory Value</h4>
+    </div>
+
+  </div>
+
+</div>

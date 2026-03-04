@@ -1,0 +1,85 @@
+<app-nav-bar></app-nav-bar>
+<br><br><br>
+
+
+<section class="cart-container">
+
+  <h2>Your Cart</h2>
+
+  @if (items.length > 0) {
+
+    @for (item of items; track item.product.id; let i = $index) {
+
+      <div class="cart-item">
+
+  <a [routerLink]="['/product', item.product.id]">
+  <img
+    [src]="item.product.imageUrl[0]"
+    alt="clothe"
+    class="cart-product-image"
+  />
+</a>
+
+
+  <div class="info">
+
+    <a
+  class="cart-product-name"
+  [routerLink]="['/product', item.product.id]"
+>
+  {{ item.product.name }}
+</a>
+
+
+    <p class="variant">
+      Size: <strong>{{ item.selectedSize }}</strong>
+    </p>
+
+    <div class="variant color-row">
+      Color:
+      <span
+        class="color-box"
+        [style.background]="item.selectedColor"
+      ></span>
+      <span>{{ item.selectedColor }}</span>
+    </div>
+
+    <p class="price">
+      ₦{{ getItemPrice(item) | number:'1.2-2' }}
+    </p>
+
+    <div class="qty">
+      <button (click)="decrease(i)">-</button>
+      <span>{{ item.quantity }}</span>
+      <button
+        (click)="increase(i)"
+        [disabled]="item.quantity == item.product.quantity"
+      >
+        +
+      </button>
+    </div>
+
+  </div>
+
+  <button (click)="remove(i)">Remove</button>
+
+</div>
+
+
+    }
+
+    <div class="cart-total">
+      <h3>
+  Total: ₦{{ total | number:'1.2-2' }}
+</h3>
+
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+
+  } @else {
+
+    <p class="empty">Your cart is empty.</p>
+
+  }
+
+</section>

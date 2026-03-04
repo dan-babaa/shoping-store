@@ -1,0 +1,128 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="auth-container">
+
+  <h2>{{ isLoginMode ? 'Login' : 'Create Account' }}</h2>
+
+  <!-- LOGIN -->
+  <form *ngIf="isLoginMode"
+        [formGroup]="loginForm"
+        (ngSubmit)="onLogin()">
+
+    <!-- Email -->
+    <div class="input-group">
+      <input type="email" placeholder="Email" formControlName="email">
+      <small *ngIf="lf.email.touched && lf.email.errors?.['required']">
+        Email is required
+      </small>
+      <small *ngIf="lf.email.touched && lf.email.errors?.['email']">
+        Enter a valid email
+      </small>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group password-group">
+      <input [type]="showLoginPassword ? 'text' : 'password'"
+             placeholder="Password"
+             formControlName="password">
+
+      <span class="toggle"
+            (click)="showLoginPassword = !showLoginPassword">
+        {{ showLoginPassword ? 'Hide' : 'Show' }}
+      </span>
+
+      <small *ngIf="lf.password.touched && lf.password.errors?.['required']">
+        Password is required
+      </small>
+      <small *ngIf="lf.password.touched && lf.password.errors?.['minlength']">
+        Minimum 6 characters
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">
+      Login
+    </button>
+
+    <p class="switch-text">
+      Don't have an account?
+      <span (click)="toggleMode()">Sign up</span>
+    </p>
+  </form>
+
+
+  <!-- SIGNUP -->
+  <form *ngIf="!isLoginMode"
+        [formGroup]="signupForm"
+        (ngSubmit)="onSignup()">
+
+    <!-- Name -->
+    <div class="input-group">
+      <input type="text" placeholder="Full Name" formControlName="name">
+      <small *ngIf="sf.name.touched && sf.name.errors?.['required']">
+        Name is required
+      </small>
+      <small *ngIf="sf.name.touched && sf.name.errors?.['minlength']">
+        Minimum 3 characters
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+      <input type="email" placeholder="Email" formControlName="email">
+      <small *ngIf="sf.email.touched && sf.email.errors?.['required']">
+        Email is required
+      </small>
+      <small *ngIf="sf.email.touched && sf.email.errors?.['email']">
+        Enter a valid email
+      </small>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group password-group">
+      <input [type]="showSignupPassword ? 'text' : 'password'"
+             placeholder="Password"
+             formControlName="password">
+
+      <span class="toggle"
+            (click)="showSignupPassword = !showSignupPassword">
+        {{ showSignupPassword ? 'Hide' : 'Show' }}
+      </span>
+
+      <small *ngIf="sf.password.touched && sf.password.errors?.['required']">
+        Password is required
+      </small>
+      <small *ngIf="sf.password.touched && sf.password.errors?.['minlength']">
+        Minimum 6 characters
+      </small>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="input-group password-group">
+      <input [type]="showConfirmPassword ? 'text' : 'password'"
+             placeholder="Confirm Password"
+             formControlName="confirmPassword">
+
+      <span class="toggle"
+            (click)="showConfirmPassword = !showConfirmPassword">
+        {{ showConfirmPassword ? 'Hide' : 'Show' }}
+      </span>
+
+      <small *ngIf="sf.confirmPassword.touched && sf.confirmPassword.errors?.['required']">
+        Confirm your password
+      </small>
+      <small *ngIf="sf.confirmPassword.errors?.['mismatch']">
+        Passwords do not match
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid">
+      Sign Up
+    </button>
+
+    <p class="switch-text">
+      Already have an account?
+      <span (click)="toggleMode()">Login</span>
+    </p>
+  </form>
+
+</div>

@@ -1,0 +1,253 @@
+<app-nav-bar></app-nav-bar>
+
+<br><br><br><br><br>
+<app-search></app-search>
+<section class="product-page">
+
+  <!-- CLEAR -->
+    <div class="filter-group">
+      <button class="clear-btn" (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+
+  <!-- 🔎 FILTER SECTION -->
+  <div class="filters">
+
+    <!-- SIZE -->
+    <div class="filter-group">
+      <label for="size">Size</label>
+      <select
+        id="size"
+        title="Filter by size"
+        [(ngModel)]="selectedSize"
+        (change)="applyFilters()"
+      >
+        <option value="">All Sizes</option>
+        <option *ngFor="let size of ['S','M','L','XL','XXL']" [value]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+
+    <!-- COLOR -->
+    <div class="filter-group">
+      <label for="color">Color</label>
+      <select
+        id="color"
+        title="Filter by color"
+        [(ngModel)]="selectedColor"
+        (change)="applyFilters()"
+      >
+        <option value="">All Colors</option>
+        <option *ngFor="let color of ['Black','White','Blue','Red','Brown','Green']"
+                [value]="color">
+          {{ color }}
+        </option>
+      </select>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="filter-group">
+      <label for="category">Category</label>
+      <select
+        id="category"
+        title="Filter by category"
+        [(ngModel)]="selectedCategory"
+        (change)="applyFilters()"
+      >
+        <option value="">All</option>
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
+        <option value="Unisex">Unisex</option>
+      </select>
+    </div>
+
+    <!-- BRAND -->
+    <div class="filter-group">
+      <label for="brand">Brand</label>
+      <select
+        id="brand"
+        title="Filter by brand"
+        [(ngModel)]="selectedBrand"
+        (change)="applyFilters()"
+      >
+        <option value="">All Brands</option>
+        <option *ngFor="let brand of ['UrbanX','StreetCore','LuxeWear','Trendify','NovaStyle']"
+                [value]="brand">
+          {{ brand }}
+        </option>
+      </select>
+    </div>
+
+    <!-- PRICE RANGE -->
+    <div class="filter-group">
+      <label>Min Price</label>
+      <input
+        type="number"
+        title="Minimum price"
+        [(ngModel)]="minPrice"
+        (input)="applyFilters()"
+        placeholder="0"
+      >
+    </div>
+
+    <div class="filter-group">
+      <label>Max Price</label>
+      <input
+        type="number"
+        title="Maximum price"
+        [(ngModel)]="maxPrice"
+        (input)="applyFilters()"
+        placeholder="500"
+      >
+    </div>
+
+
+
+    <!-- SORT -->
+    <div class="filter-group">
+      <label for="sort">Sort</label>
+      <select
+        id="sort"
+        title="Sort products"
+        [(ngModel)]="sortOption"
+        (change)="applyFilters()"
+      >
+        <option value="">Default</option>
+        <option value="low-high">Price: Low → High</option>
+        <option value="high-low">Price: High → Low</option>
+        <option value="newest">Newest</option>
+      </select>
+    </div>
+
+    
+
+  </div>
+
+  <!-- 🛍 PRODUCT GRID -->
+  <div class="products-grid">
+
+    @if (filteredProducts.length > 0) {
+
+      @for (product of visibleProducts; track product.id){
+
+        <div class="product-card">
+
+  <!-- IMAGE + BADGE -->
+  <div class="product-image-wrapper" [routerLink]="['/product', product.id]">
+
+    <img
+    [src]="product.imageUrl[0]"
+    class="primary-img"
+    alt="SHuuP"
+  >
+
+  @if (product.imageUrl.length > 1) {
+    <img
+      [src]="product.imageUrl[1]"
+      class="hover-img"
+      alt="SHuuP"
+    >
+  }
+  @if (product.discount) {
+  <span class="sale-badge">
+    -{{ product.discount }}%
+  </span>
+}
+
+    <!-- STOCK BADGE -->
+    <span
+      class="stock-badge"
+      [class.in-stock]="product.inStock"
+      [class.out-stock]="!product.inStock"
+    >
+      {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+    </span>
+
+    <!-- WISHLIST -->
+    <button class="wishlist-btn" type="button">
+      ♥
+    </button>
+
+  </div>
+
+  <!-- INFO -->
+  <div class="product-info">
+
+    <h3 class="product-name">{{ product.name }}</h3>
+
+    <p class="product-category">{{ product.category }}</p>
+
+    @if (product.discount) {
+  <p class="product-price">
+    <span class="old-price">
+      ${{ product.price | number:'1.2-2'}}
+    </span>
+    ${{ product.price - (product.price * product.discount / 100) | number:'1.2-2'}}
+  </p>
+} @else {
+  <p class="product-price">
+    ${{ product.price | number:'1.2-2'}}
+  </p>
+}
+
+
+    <!-- RATING -->
+    <div class="rating">
+  @for (star of [1,2,3,4,5]; track star) {
+    <span
+      class="star"
+      [class.filled]="star <= product.rating"
+    >
+      ★
+    </span>
+  }
+</div>
+
+
+    <!-- ACTION BUTTONS -->
+    <div class="product-actions">
+
+      <button
+  class="cart-btn"
+  type="button"
+  [disabled]="!product.inStock"
+  (click)="addCardToCart(product)"
+>
+  {{ product.inStock ? 'Add to Cart' : 'Unavailable' }}
+</button>
+
+      <button class="buy-btn" type="button">
+        Buy Now
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+      }
+
+    } @else {
+
+      <p class="noLoad">No products found.</p>
+
+    }
+
+  </div>
+  @if (visibleCount < filteredProducts.length) {
+  <div class="load-more-container">
+    <button class="load-more-btn" (click)="loadMore()">
+      Load More Products
+    </button>
+  </div>
+}@else {
+  <br>
+  <span class="noLoad">Finished</span>
+}
+
+
+</section>

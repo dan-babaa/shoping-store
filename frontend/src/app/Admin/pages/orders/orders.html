@@ -1,0 +1,40 @@
+<div class="orders-page">
+
+  <h2>Orders Management</h2>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User ID</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of visibleOrders">
+          <td>#{{ order.id }}</td>
+          <td>{{ order.userId }}</td>
+          <td>{{ formatCurrency(order.totalAmount) }}</td>
+          <td>
+            <span [ngClass]="order.status">
+              {{ order.status }}
+            </span>
+          </td>
+          <td>{{ order.createdAt | date:'mediumDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button 
+    *ngIf="visibleCount < orders.length"
+    (click)="loadMore()"
+    class="load-btn">
+    Load More
+  </button>
+
+</div>

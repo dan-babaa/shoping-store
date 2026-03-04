@@ -1,0 +1,55 @@
+.users-page {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+thead {
+  background: var(--pr_color);
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.load-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background: var(--sc_color);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.load-btn:hover {
+  opacity: 0.9;
+}

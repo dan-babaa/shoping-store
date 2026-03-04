@@ -1,0 +1,47 @@
+<div class="users-page">
+
+  <h2>Users Management</h2>
+
+  <input 
+    type="text" 
+    placeholder="Search by name or email..."
+    [(ngModel)]="searchTerm"
+    class="search-input"
+  />
+
+  <div class="table-wrapper">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Registered</th>
+          <th>Wishlist</th>
+          <th>Cart Items</th>
+          <th>Total Quantity</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.createdAt | date:'mediumDate' }}</td>
+          <td>{{ user.wishList.length }}</td>
+          <td>{{ user.cartsList.length }}</td>
+          <td>{{ getTotalCartQuantity(user) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <button 
+    *ngIf="visibleCount < users.length"
+    (click)="loadMore()"
+    class="load-btn">
+    Load More
+  </button>
+
+</div>

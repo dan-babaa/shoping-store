@@ -1,0 +1,147 @@
+/* Page background */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+  padding: 20px;
+  box-sizing: border-box;
+}
+.auth-container{
+  width: 400px;
+}
+
+.switch-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.switch-text span {
+  color: var(--pr_color);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Card container */
+.signup-container {
+  background: #ffffff;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+/* Title */
+.signup-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+/* Focus effect */
+input:focus {
+  border-color: var(--sc_color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Error text */
+small {
+  color: #e11d48;
+  font-size: 12px;
+  margin-top: -10px;
+}
+
+/* Button */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--pr_color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Hover effect */
+button:hover {
+  background: var(--sc_color);
+}
+
+/* Disabled state */
+button:disabled {
+  background: #578591a2;
+  cursor: not-allowed;
+}
+
+.login-link {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.login-link a {
+  color: var(--pr_color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-group {
+  position: relative;
+}
+
+.toggle {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--pr_color);
+  font-weight: 600;
+}
+
+small {
+  color: #e11d48;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 25px;
+  }
+
+  input {
+    font-size: 13px;
+  }
+}
